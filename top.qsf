@@ -1003,3 +1003,4 @@ set_global_assignment -name QIP_FILE platform_designer_module/synthesis/platform
 set_global_assignment -name SYSTEMVERILOG_FILE top.sv
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name SYSTEMVERILOG_FILE user_input_device.sv
