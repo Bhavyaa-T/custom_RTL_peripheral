@@ -168,6 +168,9 @@ module top (
 		.system_pll_ref_clk_clk             (CLOCK_50),             
 		.system_pll_ref_reset_reset         (1'b0),
 		
+		// custom peripheral output reg
+		.simple_led_peripheral_0_led_external_new_signal(LEDR[7:0]), 
+		
 	
 		///// HPS SIDE /////
 		

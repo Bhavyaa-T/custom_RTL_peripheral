@@ -48,5 +48,9 @@ output_files/
 /.qsys_edit/
 /platform_designer_module/
 
+hps_isw_handoff/
+c5_pin_model_dump.txt
+hps_sdram_p0_summary.csv
+
 # explanation in README
 *.qsys
