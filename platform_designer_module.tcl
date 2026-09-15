@@ -501,22 +501,37 @@ set_instance_parameter_value hps_0 {spi_m_clk_div} {0}
 set_instance_parameter_value hps_0 {usb_mp_clk_div} {0}
 set_instance_parameter_value hps_0 {use_default_mpu_clk} {1}
 
+add_instance simple_led_peripheral_0 simple_led_peripheral 1.0
+
 # exported interfaces
 add_interface hps_io conduit end
 set_interface_property hps_io EXPORT_OF hps_0.hps_io
 add_interface memory conduit end
 set_interface_property memory EXPORT_OF hps_0.memory
+add_interface simple_led_peripheral_0_led_external conduit end
+set_interface_property simple_led_peripheral_0_led_external EXPORT_OF simple_led_peripheral_0.led_external
 add_interface system_pll_ref_clk clock sink
 set_interface_property system_pll_ref_clk EXPORT_OF System_PLL.ref_clk
 add_interface system_pll_ref_reset reset sink
 set_interface_property system_pll_ref_reset EXPORT_OF System_PLL.ref_reset
 
 # connections and connection parameters
+add_connection System_PLL.reset_source simple_led_peripheral_0.reset
+
 add_connection System_PLL.sys_clk hps_0.f2h_axi_clock
 
 add_connection System_PLL.sys_clk hps_0.h2f_axi_clock
 
 add_connection System_PLL.sys_clk hps_0.h2f_lw_axi_clock
+
+add_connection System_PLL.sys_clk simple_led_peripheral_0.clock
+
+add_connection hps_0.h2f_lw_axi_master simple_led_peripheral_0.avalon_slave_0
+set_connection_parameter_value hps_0.h2f_lw_axi_master/simple_led_peripheral_0.avalon_slave_0 arbitrationPriority {1}
+set_connection_parameter_value hps_0.h2f_lw_axi_master/simple_led_peripheral_0.avalon_slave_0 baseAddress {0x0000}
+set_connection_parameter_value hps_0.h2f_lw_axi_master/simple_led_peripheral_0.avalon_slave_0 defaultConnection {0}
+
+add_connection hps_0.h2f_reset simple_led_peripheral_0.reset
 
 # interconnect requirements
 set_interconnect_requirement {$system} {qsys_mm.clockCrossingAdapter} {HANDSHAKE}
