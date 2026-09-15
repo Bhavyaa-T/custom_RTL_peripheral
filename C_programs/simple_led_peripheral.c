@@ -14,8 +14,10 @@
 void *virtual_lw_base_ptr;
 
 
-// lw bus offset for led pio
-#define FPGA_LED_WRITE_OFFSET 0x00
+// lw bus offset for custom peripheral
+// bytes 00 to 03 contain DATA, bytes 04 to 08 allow control
+#define FPGA_LED_DATA_OFFSET 0x00
+#define FPGA_LED_CONTROL_OFFSET 0x04
 
 // /dev/mem file id
 int fd;
@@ -37,14 +39,17 @@ int main(void)
         close(fd);
         return 1;
     }
+    
+    //ensures correct offset since sizeof(char) is one byte
+    volatile uint32_t* const led_data_write_ptr = (uint32_t *)((char *)virtual_lw_base_ptr + FPGA_LED_DATA_OFFSET); 
+    volatile uint32_t* const led_control_write_ptr = (uint32_t *)((char *)virtual_lw_base_ptr + FPGA_LED_CONTROL_OFFSET); 
 
-    volatile uint32_t* const led_peripheral_write_ptr = (uint32_t *)((char *)virtual_lw_base_ptr + FPGA_LED_WRITE_OFFSET); //ensures correct offset since sizeof(char) is one byte
-
-    for (int i = 0; i < 256; i++) {
-        *(led_peripheral_write_ptr) = i;
-        usleep(500000);
-    }
-
+    *(led_data_write_ptr) = 0x55;
+    *(led_control_write_ptr) = 1;
+    sleep(2);
+    *(led_control_write_ptr) = 0;
+    
+    
 }
 
 

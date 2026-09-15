@@ -1,8 +1,15 @@
+// avs_address - local addressing for data and control registers 
+// avs_address = 0 when write comes into 0x00-0x03, avs_address = 1 when write comes into 0x04-0x08
+
+// avs_write - strobe upon write event
+
+// avs_writedata - 32 bit data coming in from HPS 
+
 module simple_led_peripheral (
     input  logic        clk,
     input  logic        reset,
 
-    input  logic        avs_address,
+    input  logic        avs_address, 
     input  logic        avs_write,
     input  logic [31:0] avs_writedata,
 
