@@ -66,3 +66,4 @@ hps_sdram_p0_summary.csv
 __pycache__/
 *.pyc
 sim_build/
+tests/results.xml
