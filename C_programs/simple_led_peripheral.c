@@ -48,8 +48,7 @@ int main(void)
     *(led_control_write_ptr) = 1;
     sleep(2);
     *(led_control_write_ptr) = 0;
-    
-    
+    printf("value in Data Reg: 0x%04x\n", *(led_data_write_ptr));    
 }
 
 
